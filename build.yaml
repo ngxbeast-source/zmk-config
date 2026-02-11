@@ -18,3 +18,12 @@
 #     artifact-name: corne_left_with_studio
 #
 ---
+include:
+  - board: nice_nanov2
+    shield: lotus58
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y
+  - board: nice_nanov2
+    shield: lotus58_left
+  - board: nice_nanov2
+    shield: lotus58_right

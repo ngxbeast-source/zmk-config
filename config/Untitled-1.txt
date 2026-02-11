@@ -1,0 +1,130 @@
+
+
+// 'BHAVIORS'
+//  &kp	        │Key Press	    │  ;Send keycodes to the connected host when a key is pressed
+//  &mt	        │Mod Tap	    │  ;Sends a different key press depending on whether a key is held or tapped
+//  &kt	        │Key Toggle	    │  ;Toggles the press of a key. If the key is not currently pressed, key toggle will press it, holding it until the key toggle is pressed again or the key is released in some other way. If the key is currently pressed, key toggle will release it
+//  &sk	        │Sticky Key	    │  ;Stays pressed until another key is pressed, then is released. It is often used for modifier keys like shift, which allows typing capital letters without holding it down
+//  &gresc	    │Grave Escape	│  ;Sends Grave Accent ` keycode if shift or GUI is held, sends Escape keycode otherwise
+//  &caps_word	│Caps Word	    │  ;Behaves similar to caps lock, but automatically deactivates when any key not in a continue list is pressed, or if the caps word key is pressed again
+//  &key_repeat	│Key Repeat	    │  ;Sends again whatever keycode was last sent
+//  &trans	    │Transparent	│  ;Passes the key press down to the next active layer in the stack for processing
+//  &none	    │None	        │  ;Swallows and stops the key press, no keycode will be sent nor will the key press be passed down to the next active layer in the stack
+
+
+// 'LAYER NAVIGATION'
+// &mo	│Momentary Layer│	;Enables a layer while a key is pressed
+// &lt	│Layer-tap	    │	;Enables a layer when a key is held, and outputs a key press when the key is only tapped for a short time
+// &to	│To Layer	    │	;Enables a layer and disables all other layers except the default layer
+// &tog	│Toggle Layer   │	;Enables a layer until the layer is manually disabled
+// &sl	│Sticky Layer   │	;Activates a layer until another key is pressed, then deactivates it
+
+
+// 'MOUSE EMULATION'
+//  &mkp	│Mouse Button Press │	;Emulates pressing mouse buttons
+//  &mmv	│Mouse Move	        │	;Emulates mouse movement
+//  &msc	│Mouse Scroll       │	;Emulates mouse scrolling                 
+
+
+// 'RESET BEHAVIORS'
+//  &sys_reset	│System Reset	│	;Resets the keyboard, often used to enter bootloader mode for flashing new firmware
+//  &bootloader	│Bootloader	    │	;Enters bootloader mode for flashing new firmware
+
+
+// 'OUTPUT SELECTION'
+//  &bt	    │Bluetooth	        │	;Completes a bluetooth action given on press, for example switching between devices
+//  &out	│Output Selection	│	;Allows selecting whether output is sent to the USB or bluetooth connection when both are connected
+
+// 'LIGHTING BEHAVIORS'
+//  &tg_rgb	│Toggle RGB Light	│	;Toggles RGB lighting on or off
+//  &bl	    │Backlight	        │	;Controls the keyboard backlighting, usually placed through or under switches
+
+
+// 'POWER MANAGEMENT'
+// &ext_power	│Power management│	;Allows enabling or disabling the VCC power output to save power
+// &soft_off	│Soft off	     │	;Turns the keyboard off.
+
+
+// 'ZMK STUDIO'
+// &studio_unlock	│ZMK Studio Unlock	│  ;Unlocks the device so that ZMK Studio UI can make changes to the keyboard configuration
+
+
+// 'LAYERS' 
+// &mo  │Momentary Layer│  ;Enables a layer while a certain key is pressed. Immediately upon activation of the key, the layer is enabled, and immediately upon release of the key, the layer is disabled again.
+// &lt  │Layer-Tap      │  ;Enables a layer when a key is held, and outputs a key press when the key is only tapped for a short time.
+// &to  │To Layer       │  ;Enables a layer and disables all other layers except the default layer.
+// &tog │Toggle Layer   │  ;Enables a layer if it is currently disabled, or disables it if enabled.
+// &sl  │Sticky Layer   │  ;Activates a layer until another key is pressed, then deactivates it.
+
+
+
+// 'MACROS'
+// &macro_tap     │Tap    │ ;The default mode; when in this mode, the macro will press, then release, each behavior in the bindings list. This mode is useful for basic keycode output to hosts, i.e. when activating a &kp behavior.
+// &macro_press   │Press  │ ;In this mode, the macro will only trigger a press on each behavior in the bindings list. This is useful for holding down modifiers for some duration of a macro, e.g. &kp LALT.
+// &macro_release │Release│ ;In this mode, the macro will only trigger a release on each behavior in the bindings list. This is useful for releasing modifiers previously pressed earlier in the macro processing, e.g. &kp LALT.
+
+// Example; macro that types "ZMK" while holding left shift
+/* {
+    macros {
+        zed_em_kay: zed_em_kay {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LSHFT>
+                , <&macro_tap &kp Z &kp M &kp K>
+                , <&macro_release &kp LSHFT>
+                ;
+        };
+    };
+}; */
+
+// The macro can then be bound in your keymap by referencing it by the label &zed_em_kay, e.g.:
+
+    raise_layer {
+        bindings = <&zed_em_kay>;
+    };
+_____________________
+
+// NOTE:
+// The text before the colon (:) in the declaration of the macro node is the "node label", and is the text used to reference the macro in your keymap.
+____________________________________________________________________________________________________________________________________
+
+//KEYMAP                                            
+//DEFAULT LAYER
+
+
+        //╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮                         ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
+        //│  ESC     │ 1        │  2       │  3       │  4       │  5       │                         │  6       │  7       │  8       │  9       │  0       │          │
+            &kp ESC   &kp N1      &kp N2     &kp N3     &fofunc   &kp N5                               &kp N6    &kp N7     &kp N8     &kp N9     &kp N0     &kp EQUAL
+        //├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤                         ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│  TAB     │  Q       │  W      │  E       │  R        │ T        │                         │  Y       │  U       │  I       │  O       │  P       │          │
+           &kp TAB    &kp Q      &kp W      &kp E      &kp R      &kp T                                &kp Y      &kp U      &kp I      &kp O      &kp P    &kp LBKT
+        //├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────╮   ╭──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│  LSHFT   │  A       │  S       │  D       │  F       │  G       │  RESET   │   │  RESET   │  H       │  J       │  K       │  L       │     ;    │          │    
+           &kp LSHFT  &kp A      &sleft     &kp D      &fright    &kp G      &sys_reset     &sys_reset &kp H     &kp J       &kp K      &kp L      &kp SEMI   &mt RSHFT SQT
+        //├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│  LCTRL   │  Z       │  X       │  C       │  V       │  B       │  MUTE    │   │ PLAY     │  N       │  M       │ , <      │ . >      │  /       │  \ CTRL  │          
+           &kp LCTRL  &kp Z      &kp X      &kp C      &kp V      &kp B      &kp C_MUTE     &kp C_PP   &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &mt RCTRL BSLH
+        //╰──────────┴──────────┼──────────┼──────────┼──────────┼──────────┼──────────╯   ╰──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────╯
+        //                      │  ENT RS  │  ALT     │  SPACE   │ DEL LW   │                         │  ENTER RS│ BACKSPACE│ l LW     │ RGUI     │
+                                 &lt 2 RET   &kp LALT   &kp SPACE &lt 1 DEL                            &lt 2 RET  &kp BSPC   &lt 1 RBKT &kp LGUI
+        //                      ╰──────────┴──────────┴──────────┴──────────╯                         ╰──────────┴──────────┼──────────┴──────────╯
+
+
+
+
+        //╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮                         ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
+        //│  1       │          │  2       │  3       │  4       │  5       │                         │  6       │  7       │  8       │  9       │  0       │
+            &kp ESC   &kp N1      &kp N2     &kp N3     &fofunc   &kp N5                               &kp N6    &kp N7     &kp N8     &kp N9     &kp N0     &kp EQUAL
+        //├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤                         ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│  Q       │  W       │  E       │  R       │  T       │   │  Y                             │  U       │  I       │  O       │  P       │          │          │
+           &kp TAB    &kp Q      &kp W      &kp E      &kp R      &kp T                                &kp Y      &kp U      &kp I      &kp O      &kp P    &kp LBKT
+        //├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────╮   ╭──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│  A       │  S       │  D       │  F       │  G       │          │              │          │  H       │  J       │  K       │  L       │BACKSPACE │          │    
+           &kp LSHFT  &kp A      &sleft     &kp D      &fright    &kp G      &sys_reset     &sys_reset &kp H     &kp J       &kp K     &kp L    &kp SEMI &mt RSHFT SQT
+        //├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│  Z       │  X       │  C       │  V       │  B       │          │          │   │          │  N       │  M       │ , <      │ . >      │ ENTER    │          │          
+           &kp LCTRL  &kp Z      &kp X      &kp C      &kp V      &kp B      &kp C_MUTE     &kp C_PP   &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &mt RCTRL BSLH
+        //╰──────────┴──────────┴──────────┴──────────┼──────────┼──────────┼──────────╯   ╰──────────┼──────────┼──────────┼──────────┴──────────┴──────────┼──────────╯
+                                 &lt 2 RET   &kp LALT   &kp SPACE &lt 1 DEL                            &lt 2 RET  &kp BSPC   &lt 1 RBKT &kp LGUI
+        //                      ╰──────────┴──────────┴──────────┴──────────╯                         ╰──────────┴──────────┼──────────┴──────────╯
